@@ -1,0 +1,144 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.gof.springcloud</groupId>
+		<artifactId>microservicecloud</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>microservicecloud-zuul-gateway-9527</artifactId>
+	<properties>
+		<!--<version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>-->
+		<version.number>${git.commit.id}</version.number>
+	</properties>
+	<dependencies>
+		<!-- zuul router Gateway -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!-- actuator monitoring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- hystrix fault-tolerance -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gof.springcloud</groupId>
+			<artifactId>microservicecloud-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>springloaded</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>staging</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>pl.project13.maven</groupId>
+						<artifactId>git-commit-id-plugin</artifactId>
+						<version>2.2.4</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>revision</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
+							<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+							<generateGitPropertiesFile>true</generateGitPropertiesFile>
+							<generateGitPropertiesFilename>${project.basedir}/git.properties</generateGitPropertiesFilename>
+							<format>json</format>
+							<injectAllReactorProjects>true</injectAllReactorProjects>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>2.5.2</version>
+						<configuration>
+							<from>
+								<image>java:8</image>
+							</from>
+							<to>
+								<image>docker.io/gofnusiss/travel-plan-zuul-api:${version.number}</image>
+							</to>
+							<container>
+								<jvmFlags>
+									<jvmFlag>-Xms256m</jvmFlag>
+									<jvmFlag>-Xmx512m</jvmFlag>
+								</jvmFlags>
+								<ports>
+									<port>9527</port>
+								</ports>
+							</container>
+							<allowInsecureRegistries>true</allowInsecureRegistries>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+			 
+        </plugins>
+    </build>
+</project>
+

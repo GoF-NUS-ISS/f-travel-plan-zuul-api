@@ -1,0 +1,39 @@
+server: 
+  port: 9527
+ 
+spring: 
+  application:
+    name: microservicecloud-zuul-gateway
+ 
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://eureka1:7001/eureka
+  instance:
+    instance-id: gateway9527
+    prefer-ip-address: true 
+ 
+ 
+zuul: 
+  ignored-services: "*"
+  routes:
+    travelPlan:
+      serviceId: microservicecloud-travel-plan
+      path: /myPlan/**
+      # http://localhost:9527/myPlan/travelPlan/tim
+      # even including swagger
+      # http://localhost:9527/myPlan/swagger-ui.html#/
+    planSearch:
+      serviceId: microservicecloud-travel-elasticsearch
+      path: /mySearch/**
+    mydept: 
+      serviceId: microservicecloud-dept
+      path: /mydept/**
+      # http://localhost:9527/mydept/dept/get/2
+ 
+info:
+  app.name: gof-microcloud
+  company.name: www.gof.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
