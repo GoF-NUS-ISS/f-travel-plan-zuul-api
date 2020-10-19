@@ -1,0 +1,13 @@
+version: "3"
+services:
+  travel-plan-zuul:
+    build: ./microservicecloud/microservicecloud-zuul-gateway-9527
+    image: zuul.local
+    container_name: travel-plan-zuul
+    ports:
+      - "9527:9527"
+
+networks:
+  default:
+    external:
+      name: test-dev-shared-network
