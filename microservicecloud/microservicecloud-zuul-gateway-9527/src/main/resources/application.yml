@@ -26,10 +26,11 @@ zuul:
     planSearch:
       serviceId: microservicecloud-travel-elasticsearch
       path: /mySearch/**
-    mydept: 
-      serviceId: microservicecloud-dept
-      path: /mydept/**
-      # http://localhost:9527/mydept/dept/get/2
+      # http://localhost:9527/mySearch/swagger-ui.html#/
+    myBuilder:
+      serviceId: microservicecloud-travel-builder
+      path: /myBuilder/**
+      # http://localhost:9527/myBuilder/swagger-ui.html#/
  
 info:
   app.name: gof-microcloud
