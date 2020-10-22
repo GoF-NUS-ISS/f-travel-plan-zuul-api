@@ -18,18 +18,21 @@ zuul:
   ignored-services: "*"
   routes:
     travelPlan:
-      serviceId: microservicecloud-travel-plan
+      #serviceId: microservicecloud-travel-plan
       path: /myPlan/**
+      url: http://travel-plan-api.local:8001
       # http://localhost:9527/myPlan/travelPlan/tim
       # even including swagger
       # http://localhost:9527/myPlan/swagger-ui.html#/
     planSearch:
-      serviceId: microservicecloud-travel-elasticsearch
+      #serviceId: microservicecloud-travel-elasticsearch
       path: /mySearch/**
+      url: http://travel-plan-elasticsearch.local:8002
       # http://localhost:9527/mySearch/swagger-ui.html#/
     myBuilder:
       serviceId: microservicecloud-travel-builder
       path: /myBuilder/**
+      url: http://travel-automated-builder.local:8003
       # http://localhost:9527/myBuilder/swagger-ui.html#/
  
 info:
