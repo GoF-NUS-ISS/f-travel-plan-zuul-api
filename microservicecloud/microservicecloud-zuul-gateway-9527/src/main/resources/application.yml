@@ -32,7 +32,7 @@ zuul:
     myBuilder:
       #serviceId: microservicecloud-travel-builder
       path: /myBuilder/**
-      url: http://travel-plan-automated-builder.local:8003
+      url: http://travel-automated-builder.local:8003
       # http://localhost:9527/myBuilder/swagger-ui.html#/
  
 info:
